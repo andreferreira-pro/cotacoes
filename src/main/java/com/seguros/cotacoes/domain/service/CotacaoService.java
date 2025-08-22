@@ -1,21 +1,22 @@
 package com.seguros.cotacoes.domain.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.OffsetDateTime;
+import java.util.List; // << necessário
+
+import org.springframework.stereotype.Service;
+
 import com.seguros.cotacoes.api.dto.CotacaoRequest;
 import com.seguros.cotacoes.api.dto.CotacaoResponse;
 import com.seguros.cotacoes.domain.entity.Cotacao;
 import com.seguros.cotacoes.domain.repository.CotacaoRepository;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.OffsetDateTime;
 
 @Service
 public class CotacaoService {
 
     private final CotacaoRepository repository;
 
-    // Construtor explícito (injeta o repository)
     public CotacaoService(CotacaoRepository repository) {
         this.repository = repository;
     }
@@ -40,13 +41,13 @@ public class CotacaoService {
         c.setCriadoEm(OffsetDateTime.now());
 
         c = repository.save(c);
-        return new CotacaoResponse(c.getId(), c.getPremio(), c.getCorretagem(), c.getTotal(), c.getValorParcela());
+        return toResponse(c);
     }
 
     public CotacaoResponse buscar(Long id) {
         Cotacao c = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cotação não encontrada"));
-        return new CotacaoResponse(c.getId(), c.getPremio(), c.getCorretagem(), c.getTotal(), c.getValorParcela());
+        return toResponse(c);
     }
 
     public void excluir(Long id) {
@@ -54,5 +55,24 @@ public class CotacaoService {
             throw new IllegalArgumentException("Cotação não encontrada");
         }
         repository.deleteById(id);
+    }
+
+    // >>>>>>> ADICIONE ESSES DOIS MÉTODOS <<<<<<<
+
+    public List<CotacaoResponse> listarTodas() {
+        return repository.findAll()
+                .stream()
+                .map(this::toResponse) // precisa do método abaixo com essa assinatura exata
+                .toList();
+    }
+
+    private CotacaoResponse toResponse(Cotacao c) {
+        return new CotacaoResponse(
+                c.getId(),
+                c.getPremio(),
+                c.getCorretagem(),
+                c.getTotal(),
+                c.getValorParcela()
+        );
     }
 }
