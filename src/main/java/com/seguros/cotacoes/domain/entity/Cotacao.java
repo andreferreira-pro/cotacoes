@@ -1,56 +1,72 @@
 package com.seguros.cotacoes.domain.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-/**
- * Armazena os dados de entrada (valor do empréstimo, taxas, prazo) -
- * Armazena os resultados do cálculo (prêmio, corretagem, total e parcela)
- */
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cotacao")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Cotacao {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	// ----- Entradas -----
-	@Column(nullable = false, precision = 18, scale = 2)
-	private BigDecimal valorEmprestimo; // Ex.: 10000.00
+    @Column(nullable=false, precision=18, scale=2)
+    private BigDecimal valorEmprestimo;
 
-	@Column(nullable = false, precision = 10, scale = 6)
-	private BigDecimal taxaPremio; // Ex.: 0.0002 (0,02%)
+    @Column(nullable=false, precision=10, scale=6)
+    private BigDecimal taxaPremio;
 
-	@Column(nullable = false, precision = 10, scale = 6)
-	private BigDecimal taxaCorretagem; // Ex.: 0.05 (5%)
+    @Column(nullable=false, precision=10, scale=6)
+    private BigDecimal taxaCorretagem;
 
-	@Column(nullable = false)
-	private Integer prazoMeses; // No MVP: 12
+    @Column(nullable=false)
+    private Integer prazoMeses;
 
-	// ----- Resultados do cálculo -----
-	@Column(nullable = false, precision = 18, scale = 2)
-	private BigDecimal premio; // valorEmprestimo * taxaPremio
+    @Column(nullable=false, precision=18, scale=2)
+    private BigDecimal premio;
 
-	@Column(nullable = false, precision = 18, scale = 2)
-	private BigDecimal corretagem; // premio * taxaCorretagem
+    @Column(nullable=false, precision=18, scale=2)
+    private BigDecimal corretagem;
 
-	@Column(nullable = false, precision = 18, scale = 2)
-	private BigDecimal total; // premio + corretagem
+    @Column(nullable=false, precision=18, scale=2)
+    private BigDecimal total;
 
-	@Column(nullable = false, precision = 18, scale = 2)
-	private BigDecimal valorParcela; // total / prazoMeses (2 casas, HALF_UP)
+    @Column(nullable=false, precision=18, scale=2)
+    private BigDecimal valorParcela;
 
-	// ----- Auditoria simples -----
-	@Column(nullable = false)
-	private OffsetDateTime criadoEm; // preenchido na Service
+    @Column(nullable=false)
+    private OffsetDateTime criadoEm;
+
+    public Cotacao() {}
+
+    // Getters e Setters
+    public Long getId() { return id; }
+    public BigDecimal getValorEmprestimo() { return valorEmprestimo; }
+    public BigDecimal getTaxaPremio() { return taxaPremio; }
+    public BigDecimal getTaxaCorretagem() { return taxaCorretagem; }
+    public Integer getPrazoMeses() { return prazoMeses; }
+    public BigDecimal getPremio() { return premio; }
+    public BigDecimal getCorretagem() { return corretagem; }
+    public BigDecimal getTotal() { return total; }
+    public BigDecimal getValorParcela() { return valorParcela; }
+    public OffsetDateTime getCriadoEm() { return criadoEm; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setValorEmprestimo(BigDecimal valorEmprestimo) { this.valorEmprestimo = valorEmprestimo; }
+    public void setTaxaPremio(BigDecimal taxaPremio) { this.taxaPremio = taxaPremio; }
+    public void setTaxaCorretagem(BigDecimal taxaCorretagem) { this.taxaCorretagem = taxaCorretagem; }
+    public void setPrazoMeses(Integer prazoMeses) { this.prazoMeses = prazoMeses; }
+    public void setPremio(BigDecimal premio) { this.premio = premio; }
+    public void setCorretagem(BigDecimal corretagem) { this.corretagem = corretagem; }
+    public void setTotal(BigDecimal total) { this.total = total; }
+    public void setValorParcela(BigDecimal valorParcela) { this.valorParcela = valorParcela; }
+    public void setCriadoEm(OffsetDateTime criadoEm) { this.criadoEm = criadoEm; }
 }
