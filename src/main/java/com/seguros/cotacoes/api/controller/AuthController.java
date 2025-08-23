@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Autenticação", description = "Endpoints de autenticação e emissão de token JWT")
+@Tag(name = "Autenticação", description = "Geração emissão de token JWT")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -32,7 +32,7 @@ public class AuthController {
     }
 
     @Operation(
-        summary = "Login",
+        summary = "Login e Senha",
         description = "Valida credenciais e gera um token JWT para acessar os endpoints protegidos.",
         requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
             required = true,
@@ -40,7 +40,7 @@ public class AuthController {
                 mediaType = "application/json",
                 schema = @Schema(implementation = LoginRequest.class),
                 examples = @ExampleObject(
-                    name = "Exemplo de login",
+                    name = "Exemplo:",
                     value = "{ \"username\": \"admin\", \"password\": \"admin\" }"
                 )
             )

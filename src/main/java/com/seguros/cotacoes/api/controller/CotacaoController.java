@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-@Tag(name = "Cotações", description = "CRUD e cálculos de cotação de seguro prestamista")
+@Tag(name = "Gestão de Cotações", description = "CRUD cotações e cálculo seguro prestamista")
 @RestController
 @RequestMapping("/api/cotacoes")
 public class CotacaoController {
@@ -40,7 +40,7 @@ public class CotacaoController {
 
     @Operation(
         summary = "Criar cotação",
-        description = "Calcula e persiste uma nova cotação com base no valor do empréstimo e nas taxas.",
+        description = "Calcula e persiste uma nova cotação com base no valor do empréstimo e nas taxas de corretagem e prêmio.",
         security = @SecurityRequirement(name = "bearerAuth"),
         requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
             required = true,
@@ -75,7 +75,7 @@ public class CotacaoController {
     }
 
     @Operation(
-        summary = "Buscar cotação por ID",
+        summary = "Busca cotação por ID",
         description = "Retorna a cotação correspondente ao ID informado.",
         security = @SecurityRequirement(name = "bearerAuth"),
         responses = {
