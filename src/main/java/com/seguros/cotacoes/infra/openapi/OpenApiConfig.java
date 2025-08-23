@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -16,8 +15,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         title = "API de Cotações de Seguro Prestamista",
         version = "v1",
         description = "API para cálculo e gestão de cotações (prêmio, corretagem, total e parcelamento).",
-        contact = @Contact(name = "Equipe de Engenharia", email = "engenharia@exemplo.com"),
-        license = @License(name = "MIT", url = "https://opensource.org/licenses/MIT")
+        contact = @Contact(name = "André Ferreira", email = "andre.c.ferreira-silva@itau-unibanco.com.br")
     ),
     servers = {
         @Server(url = "http://localhost:8080", description = "Desenvolvimento local")
