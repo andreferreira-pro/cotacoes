@@ -19,7 +19,6 @@ services:
       # ===== H2 em arquivo + console acessível =====
       SPRING_DATASOURCE_URL: "jdbc:h2:file:/data/h2/cotacoes-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
       SPRING_DATASOURCE_USERNAME: "sa"
-      SPRING_DATASOURCE_PASSWORD: "sa"
       SPRING_H2_CONSOLE_ENABLED: "true"
       SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS: "true"
       SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
