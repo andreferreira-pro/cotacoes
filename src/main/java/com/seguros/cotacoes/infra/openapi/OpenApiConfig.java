@@ -4,20 +4,30 @@ import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 
 @Configuration
 @OpenAPIDefinition(
-        info = @Info(title = "API de Cotações", version = "v1"),
-        security = { @SecurityRequirement(name = "bearerAuth") } // aplica o bearer por padrão
+    info = @Info(
+        title = "API de Cotações de Seguro Prestamista",
+        version = "v1",
+        description = "API para cálculo e gestão de cotações (prêmio, corretagem, total e parcelamento).",
+        contact = @Contact(name = "Equipe de Engenharia", email = "engenharia@exemplo.com"),
+        license = @License(name = "MIT", url = "https://opensource.org/licenses/MIT")
+    ),
+    servers = {
+        @Server(url = "http://localhost:8080", description = "Desenvolvimento local")
+    }
 )
+// Security Scheme para aparecer o botão Authorize (Bearer JWT)
 @SecurityScheme(
-        name = "bearerAuth",
-        type = SecuritySchemeType.HTTP,
-        scheme = "bearer",
-        bearerFormat = "JWT"
+    name = "bearerAuth",
+    type = SecuritySchemeType.HTTP,
+    scheme = "bearer",
+    bearerFormat = "JWT"
 )
-public class OpenApiConfig {
-}
+public class OpenApiConfig { }
