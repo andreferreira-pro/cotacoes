@@ -6,7 +6,7 @@ spring:
     url: jdbc:h2:mem:cotacoes-db;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: sa
-    password: sa
+    password: 
 
   jpa:
     hibernate:
@@ -22,3 +22,14 @@ spring:
 
 server:
   port: 8080
+
+app:
+  security:
+    jwt:
+      issuer: cotacoes-api
+      # use uma chave longa (32+ chars). Em produção, use variável de ambiente.
+      secret: my-sup3r-secret-key-please-change-it-1234567890
+      expiration-minutes: 60
+    auth:
+      username: admin
+      password: admin
