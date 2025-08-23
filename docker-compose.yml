@@ -1,14 +1,33 @@
 services:
   api:
     container_name: cotacoes-api
-    build: .               # usa o Dockerfile da raiz
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: cotacoes-api:1.0
     ports:
-      - "${APP_PORT:-8080}:8080"
+      - "127.0.0.1:${APP_PORT:-8080}:8080"
+
     environment:
+      # ===== suas variáveis do .env =====
       APP_SECURITY_AUTH_USERNAME: ${APP_SECURITY_AUTH_USERNAME}
       APP_SECURITY_AUTH_PASSWORD: ${APP_SECURITY_AUTH_PASSWORD}
       APP_SECURITY_JWT_ISSUER: ${APP_SECURITY_JWT_ISSUER}
       APP_SECURITY_JWT_EXPIRATION_MINUTES: ${APP_SECURITY_JWT_EXPIRATION_MINUTES}
       APP_SECURITY_JWT_SECRET: ${APP_SECURITY_JWT_SECRET}
+
+      # ===== H2 em arquivo + console acessível =====
+      SPRING_DATASOURCE_URL: "jdbc:h2:file:/data/h2/cotacoes-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+      SPRING_DATASOURCE_USERNAME: "sa"
+      SPRING_DATASOURCE_PASSWORD: "sa"
+      SPRING_H2_CONSOLE_ENABLED: "true"
+      SPRING_H2_CONSOLE_SETTINGS_WEB_ALLOW_OTHERS: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
+
+    volumes:
+      - h2data:/data/h2
+
     restart: unless-stopped
+
+volumes:
+  h2data:
