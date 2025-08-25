@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
-import io.swagger.v3.oas.annotations.servers.Server;
+// REMOVIDO: import io.swagger.v3.oas.annotations.servers.Server;
 
 @Configuration
 @OpenAPIDefinition(
@@ -16,12 +16,9 @@ import io.swagger.v3.oas.annotations.servers.Server;
         version = "v1",
         description = "API para cálculo e gestão de cotações (prêmio, corretagem, total e parcelamento).",
         contact = @Contact(name = "André Ferreira", email = "andre.c.ferreira-silva@itau-unibanco.com.br")
-    ),
-    servers = {
-        @Server(url = "http://localhost:8080", description = "Desenvolvimento local")
-    }
+    )
+    // REMOVIDO: servers = {...}
 )
-// Security Scheme para aparecer o botão Authorize (Bearer JWT)
 @SecurityScheme(
     name = "bearerAuth",
     type = SecuritySchemeType.HTTP,
